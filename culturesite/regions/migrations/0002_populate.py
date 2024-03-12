@@ -14,10 +14,22 @@ def populate(apps, schema_editor):
 
     with open(csv_file, "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
-        regions_names = [row["name_with_type"] for row in reader]
+
+        regions_names = set()
+        cities = []
+
+        for row in reader:
+            regions_names.add(row["region_name"])
+            cities.append((row["city"], row["region_name"]))
 
     Region.objects.using(schema_editor.connection.alias).bulk_create(
         list(map(lambda name: Region(name=name), regions_names))
+    )
+
+    City = apps.get_model("regions", "City")
+
+    City.objects.using(schema_editor.connection.alias).bulk_create(
+        list(map(lambda city: City(name=city[0], region=Region.objects.get(name=city[1])), cities))
     )
 
 
