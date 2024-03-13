@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.shortcuts import redirect
-from django.urls import path
+from django.urls import path, reverse_lazy
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic.base import RedirectView
 
 
 admin.site.enable_nav_sidebar = False
@@ -30,7 +31,7 @@ def index(request):
 
 urlpatterns = [
     path("admin/", admin.site.urls, name='admin'),
-    path("", index)
+    path("", RedirectView.as_view(url=reverse_lazy("admin:index")))
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
