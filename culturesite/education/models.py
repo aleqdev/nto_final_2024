@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Studies(models.Model):
+class Study(models.Model):
     name = models.CharField(verbose_name="Наименование", max_length=255)
     descrition = models.TextField(verbose_name="Описание")
 

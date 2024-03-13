@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Studies
+from .models import Study
 
-admin.site.register(Studies)
+admin.site.register(Study)
