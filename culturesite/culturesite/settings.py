@@ -57,7 +57,9 @@ INSTALLED_APPS = [
     "regions",
     "person",
 
-    "main"
+    "entertainment",
+    "education",
+    "culture"
 ]
 
 MIDDLEWARE = [
@@ -171,6 +173,7 @@ ADMIN_REORDER = (
     "person",
     "main",
     "admin_interface", 
+    "entertainment"
 )
 
 
