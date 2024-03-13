@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     "admin_reorder",
     "superuser",
     "regions",
-    "person",
     "entertainment",
     "education",
     "culture"
@@ -171,13 +170,11 @@ CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 
 ADMIN_REORDER = (
     "regions",
-    "person",
     "culture",
     "education",
     "entertainment",
     "main",
-    "admin_interface", 
-    "entertainment"
+    "admin_interface",
 )
 
 
