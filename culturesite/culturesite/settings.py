@@ -171,8 +171,8 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 
 ADMIN_REORDER = (
-    "regions",
-    "person",
+#    "regions",
+#    "person",
     {'app': 'culture', 'models': ('culture.Artifact',)},
     "education",
     "entertainment",
