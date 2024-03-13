@@ -1,9 +1,11 @@
 from import_export import resources
-from .models import Studies, TeacherEducation
+from .models import Study, TeacherEducation
+
 
 class StudiesResource(resources.ModelResource):
     class Meta:
-        model = Studies
+        model = Study
+
 
 class TeacherEducationResource(resources.ModelResource):
     class Meta:
