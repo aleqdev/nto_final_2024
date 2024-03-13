@@ -1,5 +1,5 @@
 from django.contrib import admin
-from person.models import Person
+# from person.models import Person
 
 from .models import Place
 

@@ -57,10 +57,11 @@ INSTALLED_APPS = [
     "admin_reorder",
     "superuser",
     "regions",
-    "person",
     "entertainment",
     "education",
-    "culture"
+    "culture",
+
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -183,3 +184,6 @@ ADMIN_REORDER = (
 # django-admin-interface
 X_FRAME_OPTIONS = "SAMEORIGIN"              # allows you to use modals insated of popups
 SILENCED_SYSTEM_CHECKS = ["security.W019"]  # ignores redundant warning messages
+
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
