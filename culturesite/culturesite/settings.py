@@ -42,6 +42,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Application definition
 
+
+# ДОБАВЬ В ADMIN_REORDER!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 INSTALLED_APPS = [
     "admin_interface",
     "colorfield",
@@ -56,6 +58,9 @@ INSTALLED_APPS = [
     "superuser",
     "regions",
     "person",
+    'education',
+    'entertainment',
+    'culture',
 
     "entertainment",
     "education",
@@ -171,6 +176,9 @@ CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 ADMIN_REORDER = (
     "regions",
     "person",
+    "culture",
+    "education",
+    "entertainment",
     "main",
     "admin_interface", 
     "entertainment"
