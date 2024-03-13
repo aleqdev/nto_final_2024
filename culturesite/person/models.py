@@ -6,7 +6,7 @@ class Person(models.Model):
     surname = models.CharField(max_length=100, verbose_name="Фамилия")
     last_name = models.CharField(max_length=100, verbose_name="Отчество")
     age = models.IntegerField(verbose_name="Возраст") 
-
+    
     def fullname(self):
         return f"{self.surname} {self.name} {self.last_name}"
 
