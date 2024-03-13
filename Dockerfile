@@ -11,3 +11,4 @@ RUN pip install -r requirements.txt
 COPY ./culturesite ./culturesite
 
 CMD ["python", "./culturesite/manage.py", "runserver", "0.0.0.0:32055"]
+
