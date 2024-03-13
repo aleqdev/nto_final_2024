@@ -5,7 +5,7 @@ from .models import Artifact, ArtifactOwner
 
 @admin.register(Artifact)
 class ArtifactAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["id", "name", "owner"]
 
 
 @admin.register(ArtifactOwner)

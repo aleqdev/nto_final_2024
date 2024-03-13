@@ -1,4 +1,7 @@
 from django.contrib import admin
 from .models import Study
 
-admin.site.register(Study)
+
+@admin.register(Study)
+class StudyAdmin(admin.ModelAdmin):
+    list_display = ["id", "name"]

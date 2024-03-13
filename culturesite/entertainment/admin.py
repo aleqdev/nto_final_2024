@@ -6,4 +6,4 @@ from .models import Place
 
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["id", "name", "capacity"]

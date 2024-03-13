@@ -3,8 +3,8 @@ from education.models import Study
 
 
 class ArtifactOwner(models.Model):
-    is_study = models.BooleanField()
-    study = models.ForeignKey(Study, on_delete=models.CASCADE, blank=True, null=True)
+    is_study = models.BooleanField(verbose_name="Является студией")
+    study = models.ForeignKey(Study, on_delete=models.CASCADE, blank=True, null=True, verbose_name="Студия")
 
     def __str__(self):
         return Study.objects.get(pk=self.study.id).name if self.is_study else "Культурный центр"
