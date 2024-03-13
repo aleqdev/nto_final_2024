@@ -62,7 +62,9 @@ INSTALLED_APPS = [
     'entertainment',
     'culture',
 
-    "main"
+    "entertainment",
+    "education",
+    "culture"
 ]
 
 MIDDLEWARE = [
@@ -179,6 +181,7 @@ ADMIN_REORDER = (
     "entertainment",
     "main",
     "admin_interface", 
+    "entertainment"
 )
 
 
