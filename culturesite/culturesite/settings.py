@@ -58,10 +58,6 @@ INSTALLED_APPS = [
     "superuser",
     "regions",
     "person",
-    'education',
-    'entertainment',
-    'culture',
-
     "entertainment",
     "education",
     "culture"

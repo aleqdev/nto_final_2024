@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Artifact
+
+
+@admin.register(Artifact)
+class PlaceAdmin(admin.ModelAdmin):
+    pass
