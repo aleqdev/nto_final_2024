@@ -3,8 +3,8 @@ from .models import Study, TeacherEducation
 from import_export.admin import ImportExportModelAdmin
 
 
-@admin.register(Study, ImportExportModelAdmin)
-class StudyAdmin(admin.ModelAdmin):
+@admin.register(Study)
+class StudyAdmin(ImportExportModelAdmin):
     list_display = ["id", "name"]
 
 
