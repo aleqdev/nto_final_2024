@@ -12,3 +12,15 @@ class Artifact(models.Model):
     class Meta:
         verbose_name = "Экспонат"
         verbose_name_plural = "Экспонаты"
+
+
+# Сторонние орг
+class ForeignOrganization(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Название")
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = "Сторонняя организация"
+        verbose_name_plural = "Сторонние организации"

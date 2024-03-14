@@ -1,5 +1,5 @@
 from import_export import resources, fields
-from .models import Artifact, Study
+from .models import Artifact, Study, ForeignOrganization
 from import_export.widgets import ForeignKeyWidget
 
 class ArtifactResource(resources.ModelResource):
@@ -14,3 +14,7 @@ class ArtifactResource(resources.ModelResource):
     )
     class Meta:
         model = Artifact
+
+
+class ForeignOrganizationResource(resources.ModelResource):
+        model = ForeignOrganization

@@ -141,11 +141,8 @@ class UnitPlaceAdmin(ImportExportModelAdmin):
 
     def sell_ticket(modeladmin, request, queryset):
         import datetime
-<<<<<<< HEAD
         from django.core.exceptions import ValidationError
 
-=======
->>>>>>> f6217271497b06e4ca8b37e90134eb211e422c7d
         for item in queryset:
             if not item.is_free():
                 continue
