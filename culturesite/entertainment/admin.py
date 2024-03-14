@@ -125,6 +125,7 @@ class UnitPlaceAdmin(ImportExportModelAdmin):
     list_filter = [IsFree, FilterLocation]
     action_form = ChangePriceForm
     actions = ["change_price", "sell_ticket"]
+    search_fields = ["row", "column", "object", "price"]
 
     def object(self, obj):
         return str(obj)
@@ -140,8 +141,11 @@ class UnitPlaceAdmin(ImportExportModelAdmin):
 
     def sell_ticket(modeladmin, request, queryset):
         import datetime
+<<<<<<< HEAD
         from django.core.exceptions import ValidationError
 
+=======
+>>>>>>> f6217271497b06e4ca8b37e90134eb211e422c7d
         for item in queryset:
             if not item.is_free():
                 continue
@@ -160,8 +164,9 @@ class UnitPlaceAdmin(ImportExportModelAdmin):
 
 @admin.register(UnitPlacePurchase)
 class UnitPlacePurchaseAdmin(ImportExportModelAdmin):
-    list_display = ["object", "id", "datetime", "location", "row", "column", "price"]
-
+    list_display = ["object", "id", "datetime", "event", "location", "row", "column", "price"]
+    list_filter = ["price", "location", "event"]
+    search_fields = ["price", "location__name", "row", "column", "event"]
     def object(self, obj):
         return str(obj)
     

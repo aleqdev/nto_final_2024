@@ -31,7 +31,7 @@ class Location(models.Model):
     place = models.ForeignKey(Place, on_delete=models.CASCADE, verbose_name="Пространство")
     
     def __str__(self):
-        return f"Локация: {self.place}. {self.rows} рядов ({self.seats} мест в ряду)"
+        return f"Локация: {self.name}. {self.rows} рядов ({self.seats} мест в ряду)"
 
     def clean(self):
         if (self.place.is_location == False):
