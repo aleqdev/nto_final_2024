@@ -65,29 +65,42 @@ class ChangePriceForm(ActionForm):
     price = forms.IntegerField(required=False, validators=[MinValueValidator(0)], label="Цена")
 
 
-class IsFree(admin.FieldListFilter):
-    title = 'is free'
-    parameter_name = 'is_free'
+class IsFree(admin.SimpleListFilter):
+    title = 'Фильтр мест'
+    parameter_name = 'price'
 
     def lookups(self, request, model_admin):
         return (
-            ('True', 'Yes'), 
-            ('False', 'No')
+            ('True', 'Свободные'), 
+            ('False', 'Занятые')
         )
 
     def queryset(self, request, queryset):
         value = self.value()
-        if value == 'True':
-            return queryset.exclude(external_number__exact='')
-        elif value == 'False':
-            return queryset.filter(external_number__exact='')
-        return queryset
+
+        if value is None:
+            return queryset
+
+        exc = []
+        for q in queryset:
+            purchase = UnitPlacePurchase.objects.filter(
+                row=q.row,
+                column=q.column,
+                location=q.location,
+                event=q.event
+            )
+            if value == 'True' and len(purchase) == 0:
+                exc.append(q.id)
+            if value == 'False' and len(purchase) != 0:
+                exc.append(q.id)
+
+        return queryset.filter(id__in=exc)
     
 
 @admin.register(UnitPlace)
 class UnitPlaceAdmin(ImportExportModelAdmin):
     list_display = ["object", "price", "is_free"]
-    list_filter = [("is_free", IsFree)]
+    list_filter = [IsFree]
     action_form = ChangePriceForm
     actions = ["change_price", "sell_ticket"]
 
