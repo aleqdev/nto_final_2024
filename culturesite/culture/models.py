@@ -83,7 +83,8 @@ class ArtifactTransportAct(models.Model):
         return f"{self.showcase_order.showcase.name}"
 
     def clean(self):
-        print(self.artifacts, self.showcase_order.showcase.type)
+        print("aba", self.showcase_order.showcase.type)
+        print(self.artifacts.all().all())
 
 
     class Meta:

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Artifact, ForeignOrganization, ShowcaseType, Showcase, ArtifactReturnAct, ShowcaseOrder
+from .models import Artifact, ForeignOrganization, ShowcaseType, Showcase, ArtifactReturnAct, ShowcaseOrder, ArtifactTransportAct
 from import_export.admin import ImportExportModelAdmin
 from .resources import ArtifactResource, ForeignOrganizationResource, ShowcaseTypeResource, ShowcaseResource, ArtifactReturnActResource
 from django import forms
@@ -44,6 +44,13 @@ class ShowcaseAdmin(ImportExportModelAdmin):
     list_display = ["name", "type", "id"]
     resource_class = ShowcaseResource
 
+    def clean(self):
+        showcase = self.cleaned_data['showcase'] 
+        atrifacts = self.cleaned_data['atrifacts'] 
+        print(showcase, atrifacts)
+        return self.cleaned_data
+
+
 
 @admin.register(ArtifactReturnAct)
 class ArtifactReturnActAdmin(ImportExportModelAdmin):
@@ -51,3 +58,4 @@ class ArtifactReturnActAdmin(ImportExportModelAdmin):
     resource_class = ArtifactReturnActResource
     
 admin.site.register(ShowcaseOrder)
+admin.site.register(ArtifactTransportAct)
