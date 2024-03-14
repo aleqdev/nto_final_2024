@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "entertainment",
     "education",
     "culture",
+    "rangefilter",
 
     'import_export',
 ]
