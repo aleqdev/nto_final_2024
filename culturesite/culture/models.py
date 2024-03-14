@@ -71,3 +71,4 @@ class OrderExhibition(models.Model):
     class Meta:
         verbose_name = "Приказ о проведении выставки"
         verbose_name_plural = "Приказы о проведении выставок"
+
