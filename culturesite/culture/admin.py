@@ -39,16 +39,34 @@ class ShowcaseTypeAdmin(ImportExportModelAdmin):
     resource_class = ShowcaseTypeResource
 
 
+class ShowcaseOrderForm(forms.ModelForm):
+    class Meta:
+        model = Showcase
+        exclude = tuple()
+
+    def clean(self):
+        from django.forms import ValidationError
+
+        showcase = self.cleaned_data['showcase'] 
+        artifacts = self.cleaned_data['artifacts'] 
+        
+        for artifact in artifacts:
+            print(showcase.type.name)
+            if showcase.type.name == "Внутренняя" and artifact.owner_study is None:
+                raise ValidationError({
+                    "artifacts": "Выбран экспонат, принадлежащий сторонней организации!"
+                })
+            
+            if showcase.type.name == "Внешняя" and artifact.owner_foreign_organization is None:
+                raise ValidationError({
+                    "artifacts": "Выбран экспонат, не принадлежащий сторонней организации!"
+                })
+    
+
 @admin.register(Showcase)
 class ShowcaseAdmin(ImportExportModelAdmin):
     list_display = ["name", "type", "id"]
     resource_class = ShowcaseResource
-
-    def clean(self):
-        showcase = self.cleaned_data['showcase'] 
-        atrifacts = self.cleaned_data['atrifacts'] 
-        print(showcase, atrifacts)
-        return self.cleaned_data
 
 
 
@@ -56,6 +74,9 @@ class ShowcaseAdmin(ImportExportModelAdmin):
 class ArtifactReturnActAdmin(ImportExportModelAdmin):
     list_display = ["showcase_order", "datetime", "id"]
     resource_class = ArtifactReturnActResource
-    
-admin.site.register(ShowcaseOrder)
+
 admin.site.register(ArtifactTransportAct)
+
+@admin.register(ShowcaseOrder)
+class ShowcaseOrderAdmin(ImportExportModelAdmin):
+    form = ShowcaseOrderForm
