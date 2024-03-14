@@ -1,5 +1,5 @@
 from import_export import resources, fields
-from .models import Artifact, Study, ForeignOrganization, Showcase, ShowcaseType
+from .models import Artifact, Study, ForeignOrganization, Showcase, ShowcaseType, ArtifactReturnAct
 from import_export.widgets import ForeignKeyWidget
 
 class ArtifactResource(resources.ModelResource):
@@ -26,3 +26,7 @@ class ShowcaseTypeResource(resources.ModelResource):
 
 class ShowcaseResource(resources.ModelResource):
         model = Showcase
+
+
+class ArtifactReturnActResource(resources.ModelResource):
+        model = ArtifactReturnAct
