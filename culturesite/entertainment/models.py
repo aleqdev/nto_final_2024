@@ -42,3 +42,12 @@ class Event(models.Model):
     class Meta:
         verbose_name = "Мероприятие"
         verbose_name_plural = "Мероприятия"
+
+
+class TicketPriceEvent(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name="Мероприятие")
+    
+
+    class Meta:
+        verbose_name = "Установка цен на билеты"
+        verbose_name_plural = "Установки цен на билеты"
