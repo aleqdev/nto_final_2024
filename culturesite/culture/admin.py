@@ -76,8 +76,32 @@ class ArtifactReturnActAdmin(ImportExportModelAdmin):
     resource_class = ArtifactReturnActResource
 
 admin.site.register(ArtifactAquireAct)
-admin.site.register(ArtifactTransportAct)
 
 @admin.register(ShowcaseOrder)
 class ShowcaseOrderAdmin(ImportExportModelAdmin):
     form = ShowcaseOrderForm
+
+
+class ArtifactTransportActForm(forms.ModelForm):
+    class Meta:
+        model = ArtifactTransportAct
+        exclude = tuple()
+
+    def clean(self):
+        from django.forms import ValidationError
+
+        print(self.cleaned_data)
+
+        showcase = self.cleaned_data['showcase_order'].showcase
+        artifacts = self.cleaned_data['artifacts'] 
+        
+        for artifact in artifacts:
+            if not artifact.is_free():
+                raise ValidationError({
+                    "artifacts": f"Экспонат {artifact} уже забронирован!"
+                })
+            
+
+@admin.register(ArtifactTransportAct)
+class ArtifactTransportActAdmin(ImportExportModelAdmin):
+    form = ArtifactTransportActForm

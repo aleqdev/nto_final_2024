@@ -28,6 +28,36 @@ class Artifact(models.Model):
         return self.owner_foreign_organization
     def __str__(self):
         return f"Наименование: {self.name}. Владелец: {self.owner()}"
+    
+    def is_free(self):
+        transports = ArtifactTransportAct.objects.all().order_by("-date_transport")
+        returns = ArtifactReturnAct.objects.all().order_by("-datetime")
+
+        transports = [
+            t for t in transports
+            if self.id in [a.id for a in t.artifacts.all()]
+        ]
+
+        returns = [
+            t for t in returns
+            if self.id in [a.id for a in t.artifacts.all()]
+        ]
+
+
+        print(transports)
+        print(returns)
+
+        if len(transports) == 0 and len(returns) == 0:
+            return True
+        
+        if len(transports) == 1 and len(returns) == 0:
+            return False
+        
+        if transports[0].date_transport < returns[0].datetime:
+            return True
+        
+        return False
+
     owner.short_description = "Владелец"
 
     class Meta:
@@ -102,8 +132,7 @@ class ArtifactTransportAct(models.Model):
         return f"{self.showcase_order.showcase.name}"
 
     def clean(self):
-        print("aba", self.showcase_order.showcase.type)
-        print(self.artifacts.all().all())
+        pass
 
 
     class Meta:
