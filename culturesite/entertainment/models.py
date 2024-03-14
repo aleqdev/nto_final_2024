@@ -19,8 +19,8 @@ class Place(models.Model):
         #     raise ValidationError(f"Вы не можете изменить пространство, так как у него имеются связанные локации")
         
     class Meta:
-        verbose_name = "Место"
-        verbose_name_plural = "Места"
+        verbose_name = "Пространство"
+        verbose_name_plural = "Пространства"
 
 
 # Локация 
