@@ -87,9 +87,10 @@ class IsFree(admin.FieldListFilter):
 @admin.register(UnitPlace)
 class UnitPlaceAdmin(ImportExportModelAdmin):
     list_display = ["object", "price", "is_free"]
-    list_filter = [("is_free", IsFree)]
+    # list_filter = [("is_free", IsFree)]
     action_form = ChangePriceForm
     actions = ["change_price", "sell_ticket"]
+    search_fields = ["row", "column", "object", "price"]
 
     def object(self, obj):
         return str(obj)
@@ -101,9 +102,6 @@ class UnitPlaceAdmin(ImportExportModelAdmin):
 
     def sell_ticket(modeladmin, request, queryset):
         import datetime
-
-        print(123)
-
         for item in queryset:
             UnitPlacePurchase.objects.create(
                 datetime=datetime.datetime.now(),
@@ -119,8 +117,9 @@ class UnitPlaceAdmin(ImportExportModelAdmin):
 
 @admin.register(UnitPlacePurchase)
 class UnitPlacePurchaseAdmin(ImportExportModelAdmin):
-    list_display = ["object", "id", "datetime", "location", "row", "column", "price"]
-
+    list_display = ["object", "id", "datetime", "event", "location", "row", "column", "price"]
+    list_filter = ["price", "location", "event"]
+    search_fields = ["price", "location__name", "row", "column", "event"]
     def object(self, obj):
         return str(obj)
     
