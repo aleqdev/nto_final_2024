@@ -133,6 +133,11 @@ class ArtifactTransportAct(models.Model):
 
     def clean(self):
         pass
+<<<<<<< HEAD
+=======
+        # print("aba", self.showcase_order.showcase.type)
+        # print(self.artifacts.all().all())
+>>>>>>> 142a607b4053a48c07c05e9b14b7304f774f3779
 
 
     class Meta:

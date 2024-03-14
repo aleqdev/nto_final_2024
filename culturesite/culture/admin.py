@@ -105,3 +105,14 @@ class ArtifactTransportActForm(forms.ModelForm):
 @admin.register(ArtifactTransportAct)
 class ArtifactTransportActAdmin(ImportExportModelAdmin):
     form = ArtifactTransportActForm
+    list_display = ["showcase", "study", "place", "date_start", "date_end", "date_register"]
+    def study(self, obj):
+        status = "В ожидании поступления экспонатов от сторонней организации"
+        find = ArtifactTransportAct.objects.filter(showcase_order=obj)
+        if (find.count() > 0):
+            status = "Переданы на выставку."
+        find = ArtifactReturnAct.objects.filter(showcase_order=obj)
+        if (find.count() > 0):
+            status = "Экспонаты возвращены."
+        return status
+    study.short_description = 'Стадия'
