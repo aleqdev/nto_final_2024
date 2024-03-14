@@ -178,6 +178,7 @@ ADMIN_REORDER = (
     "entertainment",
     "main",
     "admin_interface", 
+    {"app": "culture", "label": "Для администратора", 'models': ("culture.ArtifactOwner",)}
 )
 
 
