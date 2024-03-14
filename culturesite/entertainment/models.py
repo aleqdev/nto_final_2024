@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 
+
 class Place(models.Model):
     name = models.CharField(max_length=50, verbose_name="Название")
     capacity = models.IntegerField(verbose_name="Вместимость") 
@@ -38,3 +39,32 @@ class Location(models.Model):
     class Meta:
         verbose_name = "Локация"
         verbose_name_plural = "Локации"
+
+class EventType(models.Model):
+    type_name = models.CharField(max_length=50, verbose_name="Тип мероприятия")
+
+    def __str__(self):
+        return self.type_name
+    
+    class Meta:
+        verbose_name = "Тип мероприятия"
+        verbose_name_plural = "Типы мероприятий"
+
+
+class Event(models.Model):
+    date = models.DateField(verbose_name="Дата проведения")
+    name = models.CharField(max_length=150, verbose_name="Название")
+    event_type = models.ForeignKey(EventType, on_delete=models.CASCADE, verbose_name="Тип")
+    datetime_begin = models.DateTimeField(verbose_name="Время начала")
+    datetime_end = models.DateTimeField(verbose_name="Время окончания")
+    visitors_count = models.PositiveIntegerField(verbose_name="Количество поситителей")
+    place = models.ForeignKey(Place, on_delete=models.CASCADE, verbose_name="Пространство")
+    is_paid = models.BooleanField(verbose_name="Платное мероприятие")
+    description = models.TextField(verbose_name="Описание")
+
+    def __str__(self):
+        return f"{self.name} ({self.datetime_begin} - {self.datetime_end})"
+    
+    class Meta:
+        verbose_name = "Мероприятие"
+        verbose_name_plural = "Мероприятия"
