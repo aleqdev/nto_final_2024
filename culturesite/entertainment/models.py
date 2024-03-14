@@ -83,6 +83,7 @@ class TicketPriceEvent(models.Model):
         verbose_name_plural = "Установки цен на билеты"
 
 
+
 # Место 
 class UnitPlace(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name="Мероприятие")
@@ -94,6 +95,31 @@ class UnitPlace(models.Model):
     def __str__(self):
         return f"{self.row} ряд ({self.column} место - ({self.event.name})"
         
+    def is_free(obj):
+        return UnitPlacePurchase.objects.filter(
+            row=obj.row,
+            column=obj.column,
+            location=obj.location,
+            event=obj.event
+        ).count() == 0
+    
     class Meta:
         verbose_name = "Место"
         verbose_name_plural = "Места"
+
+
+# Продажа билетов 
+class UnitPlacePurchase(models.Model):
+    datetime = models.DateTimeField(verbose_name="Дата")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name="Мероприятие")
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, verbose_name="Location", null=True, blank=True)
+    row = models.PositiveIntegerField(verbose_name="Ряд", null=True, blank=True)
+    column = models.PositiveIntegerField(verbose_name="Место", null=True, blank=True)
+    price = models.PositiveIntegerField(verbose_name="Цена")
+
+    def __str__(self):
+        return f"Продажа билета ({self.event.name})"
+        
+    class Meta:
+        verbose_name = "Продажа билетов на мероприятие"
+        verbose_name_plural = "Продажа билетов на мероприятие"
