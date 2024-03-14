@@ -3,6 +3,7 @@ from education.models import Study
 from entertainment.models import Place
 
 
+<<<<<<< HEAD
 class Artifact(models.Model):
     name = models.CharField(max_length=50, verbose_name="Название")
     owner = models.ForeignKey(Study, on_delete=models.PROTECT, verbose_name="Владелец")
@@ -14,6 +15,8 @@ class Artifact(models.Model):
         verbose_name_plural = "Экспонаты"
 
 
+=======
+>>>>>>> 8af7a9b059f61a7d7ab000f16d0f6a98ee7fcbb9
 # Сторонние орг
 class ForeignOrganization(models.Model):
     name = models.CharField(max_length=100, verbose_name="Название")
@@ -24,6 +27,25 @@ class ForeignOrganization(models.Model):
     class Meta:
         verbose_name = "Сторонняя организация"
         verbose_name_plural = "Сторонние организации"
+
+
+class Artifact(models.Model):
+    name = models.CharField(max_length=50, verbose_name="Название")
+    owner_study = models.ForeignKey(Study, on_delete=models.PROTECT, verbose_name="Владелец (Студия)", null=True, blank=True)
+    owner_foreign_organization = models.ForeignKey(ForeignOrganization, on_delete=models.PROTECT, verbose_name="Владелец (Сторонняя организация)", null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+    
+    def owner(self):
+        if self.owner_study is not None:
+            return self.owner_study
+        return self.owner_foreign_organization
+    owner.short_description = "Владелец"
+
+    class Meta:
+        verbose_name = "Экспонат"
+        verbose_name_plural = "Экспонаты"
 
 
 class ShowcaseType(models.Model):
