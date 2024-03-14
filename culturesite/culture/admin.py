@@ -7,3 +7,4 @@ from .resources import ArtifactResource
 class ArtifactAdmin(ImportExportModelAdmin):
     list_display = ["id", "name", "owner"]
     resource_class = ArtifactResource
+
