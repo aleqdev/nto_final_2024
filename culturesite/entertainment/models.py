@@ -84,7 +84,7 @@ class TicketPriceEvent(models.Model):
 
 
 
-# Место 
+# Место
 class UnitPlace(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name="Мероприятие")
     location = models.ForeignKey(Location, on_delete=models.CASCADE, verbose_name="Локация", null=True, blank=True)

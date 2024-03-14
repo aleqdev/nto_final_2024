@@ -3,6 +3,12 @@ from .models import Place, Location, EventType, Event, UnitPlace, UnitPlacePurch
 from import_export.admin import ImportExportModelAdmin
 
 
+from rangefilter.filters import (
+    DateRangeFilterBuilder,
+    DateTimeRangeFilterBuilder,
+    NumericRangeFilterBuilder,
+    DateRangeQuickSelectListFilterBuilder,
+)
 
 class LocationInline(admin.StackedInline):
     model = Location
@@ -19,27 +25,6 @@ class PlaceAdmin(ImportExportModelAdmin):
         return str(obj)
     
     object.short_description = 'Объект'
-
-# class BookInline(admin.StackedInline):
-#     model = Book
-#     extra = 0
-#     verbose_name = "Книга автора"
-#     verbose_name_plural = "Книги автора"
-#     # readonly_fields = ("price", ) # readonly поля
-#     # fields = ("name", "price", ) # можно указать какие поля выводить
-#     min_num = 0 # минимальное количество пустых полей для заполнения
-#     max_num = 100 # максимальное количество пустых полей для заполнения
-#     can_delete = True
-#     show_change_link = True
-
-# class AuthorAdmin(admin.ModelAdmin):
-#     inlines = [
-#         BookInline,
-#     ]
-    
-# admin.site.register(Author, AuthorAdmin)
-# admin.site.register(Book)
-    
 
 @admin.register(EventType)
 class EventTypeAdmin(ImportExportModelAdmin):
@@ -158,11 +143,19 @@ class UnitPlaceAdmin(ImportExportModelAdmin):
 
     sell_ticket.short_description = "Продать билеты"
     
-
+from datetime import datetime
 @admin.register(UnitPlacePurchase)
 class UnitPlacePurchaseAdmin(ImportExportModelAdmin):
     list_display = ["object", "id", "datetime", "event", "location", "row", "column", "price"]
-    list_filter = ["price", "location", "event"]
+    list_filter = ["price", "location", "event", ("datetime", DateRangeFilterBuilder()),
+        (
+            "datetime",
+            DateTimeRangeFilterBuilder(
+                title="Custom title",
+                default_start=datetime(2020, 1, 1),
+                default_end=datetime(2030, 1, 1),
+            ),
+        ),]
     search_fields = ["price", "location__name", "row", "column", "event"]
     def object(self, obj):
         return str(obj)
