@@ -175,7 +175,7 @@ CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 ADMIN_REORDER = (
 #    "regions",
 #    "person",
-    {'app': 'culture', 'models': ('culture.Artifact', "culture.ShowcaseOrder", "culture.ArtifactTransportAct", "culture.ArtifactReturnAct")},
+    {'app': 'culture', 'models': ('culture.Artifact', "culture.ShowcaseOrder","culture.ArtifactAquireAct", "culture.ArtifactTransportAct", "culture.ArtifactReturnAct")},
     "education",
     "entertainment",
     "main",
