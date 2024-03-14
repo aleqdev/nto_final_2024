@@ -1,11 +1,11 @@
 from django.db import models
 from education.models import Study
+from entertainment.models import Place
 
 
 class Artifact(models.Model):
     name = models.CharField(max_length=50, verbose_name="Название")
     owner = models.ForeignKey(Study, on_delete=models.PROTECT, verbose_name="Владелец")
-
     def __str__(self):
         return self.name
 
@@ -48,3 +48,18 @@ class Showcase(models.Model):
     class Meta:
         verbose_name = "Выставка"
         verbose_name_plural = "Выставки"
+
+class OrderExhibition(models.Model):
+    dateRegister = models.DateTimeField(verbose_name="Приказ о проведении выставки")
+    showcase = models.ForeignKey(Showcase, verbose_name="Выставка", on_delete=models.CASCADE)
+    dateStart = models.DateTimeField(verbose_name="Дата начала проведения")
+    dateEnd = models.DateTimeField(verbose_name="Дата окончания проведения")
+    place = models.ForeignKey(Place, verbose_name="Место проведения", on_delete=models.CASCADE)
+    artifacts = models.ManyToManyField(Artifact)
+
+    def __str__(self):
+        return f"Выставка: {self.showcase}. Место: {self.place}. Дата проведения: {self.dateStart.strftime("%Y-%m-%d %H:%M:%S")} до {self.dateEnd.strftime("%Y-%m-%d %H:%M:%S")}. Дата регистрации: {self.dateRegister.strftime("%Y-%m-%d %H:%M:%S")}"
+
+    class Meta:
+        verbose_name = "Приказ о проведении выставки"
+        verbose_name_plural = "Приказы о проведении выставок"

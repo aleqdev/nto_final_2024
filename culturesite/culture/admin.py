@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Artifact, ForeignOrganization, ShowcaseType, Showcase
+from .models import Artifact, ForeignOrganization, ShowcaseType, Showcase, OrderExhibition
 from import_export.admin import ImportExportModelAdmin
 from .resources import ArtifactResource, ForeignOrganizationResource, ShowcaseTypeResource, ShowcaseResource
 
@@ -25,3 +25,5 @@ class ShowcaseTypeAdmin(ImportExportModelAdmin):
 class ShowcaseAdmin(ImportExportModelAdmin):
     list_display = ["name", "type", "id"]
     resource_class = ShowcaseResource
+
+admin.site.register(OrderExhibition)
