@@ -76,7 +76,7 @@ class ShowcaseOrder(models.Model):
 
 class ArtifactReturnAct(models.Model):
     datetime = models.DateTimeField(verbose_name="Дата")
-    showcase_order = models.ForeignKey(ShowcaseOrder, verbose_name="Приказ о проведении выставки")
+    showcase_order = models.ForeignKey(ShowcaseOrder, on_delete=models.CASCADE, verbose_name="Приказ о проведении выставки")
     artifacts = models.ManyToManyField(Artifact, on_delete=models.CASCADE, verbose_name="Экспонаты")
 
     def __str__(self):
