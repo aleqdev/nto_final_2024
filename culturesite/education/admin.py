@@ -12,4 +12,3 @@ class StudyAdmin(ImportExportModelAdmin):
 @admin.register(TeacherEducation)
 class TeacherEducationAdmin(ImportExportModelAdmin):
     pass
-

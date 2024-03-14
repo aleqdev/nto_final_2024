@@ -73,6 +73,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
    "admin_reorder.middleware.ModelAdminReorder",
+   "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "culturesite.urls"
