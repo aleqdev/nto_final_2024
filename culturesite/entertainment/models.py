@@ -67,7 +67,7 @@ class Event(models.Model):
     description = models.TextField(verbose_name="Описание")
 
     def __str__(self):
-        return f"{self.name} ({self.datetime_begin} - {self.datetime_end})"
+        return f"{self.name} ({self.datetime_begin.strftime("%Y-%m-%d %H:%M:%S")} - {self.datetime_end.strftime("%Y-%m-%d %H:%M:%S")})"
     
     class Meta:
         verbose_name = "Мероприятие"
@@ -88,12 +88,18 @@ class TicketPriceEvent(models.Model):
 class UnitPlace(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name="Мероприятие")
     location = models.ForeignKey(Location, on_delete=models.CASCADE, verbose_name="Локация", null=True, blank=True)
-    row = models.PositiveIntegerField(verbose_name="Ряд")
-    column = models.PositiveIntegerField(verbose_name="Место")
+    row = models.PositiveIntegerField(verbose_name="Ряд", null=True, blank=True)
+    column = models.PositiveIntegerField(verbose_name="Место", null=True, blank=True)
     price = models.PositiveIntegerField(verbose_name="Стоимость")
 
     def __str__(self):
-        return f"{self.row} ряд ({self.column} место - ({self.event.name})"
+        if self.row is None:
+            if self.column is None:
+                return self.event.name
+            return f"{self.column} место - ({self.event.name})"
+        if self.column is None:
+            return f"{self.row} ряд - ({self.event.name})"
+        return f"{self.row} ряд {self.column} место - ({self.event.name})"
         
     def is_free(obj):
         return UnitPlacePurchase.objects.filter(

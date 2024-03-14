@@ -66,7 +66,7 @@ class ChangePriceForm(ActionForm):
 
 
 class IsFree(admin.SimpleListFilter):
-    title = 'Фильтр мест'
+    title = 'Фильтр мест по занятости'
     parameter_name = 'price'
 
     def lookups(self, request, model_admin):
@@ -97,10 +97,32 @@ class IsFree(admin.SimpleListFilter):
         return queryset.filter(id__in=exc)
     
 
+class FilterLocation(admin.SimpleListFilter):
+    title = 'Фильтр мест по пространству'
+    parameter_name = 'id'
+
+    def lookups(self, request, model_admin):
+        return tuple(
+            (place.id, place.name)
+            for place
+            in Place.objects.all()
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+
+        if value is None:
+            return queryset
+        
+        print(value)
+
+        return queryset.filter(location__place__id__exact=int(value))
+    
+
 @admin.register(UnitPlace)
 class UnitPlaceAdmin(ImportExportModelAdmin):
     list_display = ["object", "price", "is_free"]
-    list_filter = [IsFree]
+    list_filter = [IsFree, FilterLocation]
     action_form = ChangePriceForm
     actions = ["change_price", "sell_ticket"]
 
@@ -108,16 +130,22 @@ class UnitPlaceAdmin(ImportExportModelAdmin):
         return str(obj)
     object.short_description = 'Объект'
 
+    def is_free(self, obj):
+        return "Свободное" if obj.is_free() else "Занятое"
+    is_free.short_description = "Занятость"
+
     def change_price(modeladmin, request, queryset):
         queryset.update(price=int(request.POST['price'] or '0'))
     change_price.short_description = "Изменить цену"
 
     def sell_ticket(modeladmin, request, queryset):
         import datetime
-
-        print(123)
+        from django.core.exceptions import ValidationError
 
         for item in queryset:
+            if not item.is_free():
+                continue
+            
             UnitPlacePurchase.objects.create(
                 datetime=datetime.datetime.now(),
                 event=item.event,
