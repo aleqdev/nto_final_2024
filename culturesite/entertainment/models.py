@@ -85,16 +85,13 @@ class TicketPriceEvent(models.Model):
 
 # Место 
 class UnitPlace(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name="Пространство")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name="Мероприятие")
+    row = models.PositiveIntegerField(verbose_name="Ряд")
+    column = models.PositiveIntegerField(verbose_name="Место")
+    price = models.PositiveIntegerField(verbose_name="Стоимость")
 
     def __str__(self):
-        return f"{self.name} ({self.capacity} чел.)"
-    
-    def clean(self):
-        pass
-        # cnt = Location.objects.filter(place=self)
-        # if (len(cnt) > 0):
-        #     raise ValidationError(f"Вы не можете изменить пространство, так как у него имеются связанные локации")
+        return f"{self.row} ряд ({self.column} место - ({self.event.name})"
         
     class Meta:
         verbose_name = "Место"

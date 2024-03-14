@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Place, Location, EventType, Event
+from .models import Place, Location, EventType, Event, UnitPlace
 from import_export.admin import ImportExportModelAdmin
 
 
@@ -54,4 +54,30 @@ class EventAdmin(ImportExportModelAdmin):
         return str(obj)
     
     object.short_description = 'Объект'
+    
+
+from django.contrib.admin.helpers import ActionForm
+from django import forms
+from django.core.validators import MinValueValidator
+
+
+class ChangePriceForm(ActionForm):
+    price = forms.IntegerField(required=True, validators=[MinValueValidator(0)], label="Цена")
+
+
+@admin.register(UnitPlace)
+class UnitPlaceAdmin(ImportExportModelAdmin):
+    list_display = ["object", "price"]
+    action_form = ChangePriceForm
+    actions = ["change_price"]
+
+    def object(self, obj):
+        return str(obj)
+    
+    object.short_description = 'Объект'
+
+    def change_price(modeladmin, request, queryset):
+        queryset.update(price=int(request.POST['price']))
+
+    change_price.short_description = "Изменить цену"
     
