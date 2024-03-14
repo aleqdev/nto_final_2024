@@ -108,10 +108,10 @@ class ArtifactTransportActAdmin(ImportExportModelAdmin):
     list_display = ["showcase_order", "study"]
     def study(self, obj):
         status = "В ожидании поступления экспонатов от сторонней организации"
-        find = ArtifactTransportAct.objects.filter(showcase_order=obj)
+        find = ArtifactTransportAct.objects.filter(showcase_order=obj.showcase_order)
         if (find.count() > 0):
             status = "Переданы на выставку."
-        find = ArtifactReturnAct.objects.filter(showcase_order=obj)
+        find = ArtifactReturnAct.objects.filter(showcase_order=obj.showcase_order)
         if (find.count() > 0):
             status = "Экспонаты возвращены."
         return status
