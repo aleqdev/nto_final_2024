@@ -1,9 +1,5 @@
 from django.contrib import admin
-<<<<<<< HEAD
-from .models import Place, Location
-=======
-from .models import Place, EventType, Event
->>>>>>> 92b35005f5440698b48e61d4c70318861f46eba3
+from .models import Place, Location, EventType, Event
 from import_export.admin import ImportExportModelAdmin
 
 
