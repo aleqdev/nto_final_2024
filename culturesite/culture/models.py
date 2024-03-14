@@ -58,19 +58,6 @@ class Showcase(models.Model):
         verbose_name_plural = "Выставки"
 
 
-class ArtifactReturnAct(models.Model):
-    datetime = models.DateTimeField(verbose_name="Дата")
-    showcase_order = models.ForeignKey(verbose_name="Приказ о проведении выставки")
-    artifacts = models.ManyToManyField(Artifact, on_delete=models.CASCADE, verbose_name="Экспонаты")
-
-    def __str__(self):
-        return f"{self.showcase_order.showcase.name}"
-
-    class Meta:
-        verbose_name = "Акт возврата экспонатов"
-        verbose_name_plural = "Акты возврата экспонатов"
-
-
 class ShowcaseOrder(models.Model):
     date_register = models.DateTimeField(verbose_name="Приказ о проведении выставки")
     showcase = models.ForeignKey(Showcase, verbose_name="Выставка", on_delete=models.CASCADE)
@@ -85,3 +72,16 @@ class ShowcaseOrder(models.Model):
     class Meta:
         verbose_name = "Приказ о проведении выставки"
         verbose_name_plural = "Приказы о проведении выставок"
+
+
+class ArtifactReturnAct(models.Model):
+    datetime = models.DateTimeField(verbose_name="Дата")
+    showcase_order = models.ForeignKey(ShowcaseOrder, verbose_name="Приказ о проведении выставки")
+    artifacts = models.ManyToManyField(Artifact, on_delete=models.CASCADE, verbose_name="Экспонаты")
+
+    def __str__(self):
+        return f"{self.showcase_order.showcase.name}"
+
+    class Meta:
+        verbose_name = "Акт возврата экспонатов"
+        verbose_name_plural = "Акты возврата экспонатов"
