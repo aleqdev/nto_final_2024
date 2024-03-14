@@ -57,18 +57,31 @@ class Showcase(models.Model):
         verbose_name = "Выставка"
         verbose_name_plural = "Выставки"
 
-class OrderExhibition(models.Model):
-    dateRegister = models.DateTimeField(verbose_name="Приказ о проведении выставки")
+
+class ShowcaseOrder(models.Model):
+    date_register = models.DateTimeField(verbose_name="Приказ о проведении выставки")
     showcase = models.ForeignKey(Showcase, verbose_name="Выставка", on_delete=models.CASCADE)
-    dateStart = models.DateTimeField(verbose_name="Дата начала проведения")
-    dateEnd = models.DateTimeField(verbose_name="Дата окончания проведения")
+    date_start = models.DateTimeField(verbose_name="Дата начала проведения")
+    date_end = models.DateTimeField(verbose_name="Дата окончания проведения")
     place = models.ForeignKey(Place, verbose_name="Место проведения", on_delete=models.CASCADE)
     artifacts = models.ManyToManyField(Artifact)
 
     def __str__(self):
-        return f"Выставка: {self.showcase}. Место: {self.place}. Дата проведения: {self.dateStart.strftime("%Y-%m-%d %H:%M:%S")} до {self.dateEnd.strftime("%Y-%m-%d %H:%M:%S")}. Дата регистрации: {self.dateRegister.strftime("%Y-%m-%d %H:%M:%S")}"
+        return f"Выставка: {self.showcase}. Место: {self.place}. Дата проведения: {self.date_start.strftime("%Y-%m-%d %H:%M:%S")} до {self.date_end.strftime("%Y-%m-%d %H:%M:%S")}. Дата регистрации: {self.date_register.strftime("%Y-%m-%d %H:%M:%S")}"
 
     class Meta:
         verbose_name = "Приказ о проведении выставки"
         verbose_name_plural = "Приказы о проведении выставок"
 
+
+class ArtifactReturnAct(models.Model):
+    datetime = models.DateTimeField(verbose_name="Дата")
+    showcase_order = models.ForeignKey(ShowcaseOrder, verbose_name="Приказ о проведении выставки")
+    artifacts = models.ManyToManyField(Artifact, on_delete=models.CASCADE, verbose_name="Экспонаты")
+
+    def __str__(self):
+        return f"{self.showcase_order.showcase.name}"
+
+    class Meta:
+        verbose_name = "Акт возврата экспонатов"
+        verbose_name_plural = "Акты возврата экспонатов"
