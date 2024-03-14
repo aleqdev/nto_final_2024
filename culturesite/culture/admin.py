@@ -44,6 +44,13 @@ class ShowcaseAdmin(ImportExportModelAdmin):
     list_display = ["name", "type", "id"]
     resource_class = ShowcaseResource
 
+    def clean(self):
+        showcase = self.cleaned_data['showcase'] 
+        atrifacts = self.cleaned_data['atrifacts'] 
+        print(showcase, atrifacts)
+        return self.cleaned_data
+
+
 
 @admin.register(ArtifactReturnAct)
 class ArtifactReturnActAdmin(ImportExportModelAdmin):
