@@ -74,8 +74,27 @@ class ShowcaseOrder(models.Model):
         verbose_name = "Приказ о проведении выставки"
         verbose_name_plural = "Приказы о проведении выставок"
 
+
+class ArtifactAquireAct(models.Model):
+    date = models.DateTimeField(verbose_name="Дата")
+    showcase_order = models.ForeignKey(ShowcaseOrder, on_delete=models.CASCADE, verbose_name="Приказ о проведении выставки")
+    artifacts = models.ManyToManyField(Artifact, verbose_name="Экспонаты")
+    
+    def __str__(self):
+        return f"{self.showcase_order.showcase.name}"
+
+    def clean(self):
+        print("aba", self.showcase_order.showcase.type)
+        print(self.artifacts.all().all())
+
+
+    class Meta:
+        verbose_name = "Поступление экспонатов от сторонней организации"
+        verbose_name_plural = "Поступления экспонатов от сторонней организации"
+
+
 class ArtifactTransportAct(models.Model):
-    date_transport = models.DateTimeField(verbose_name="Дата передачи экспонато")
+    date_transport = models.DateTimeField(verbose_name="Дата передачи экспоната")
     showcase_order = models.ForeignKey(ShowcaseOrder, on_delete=models.CASCADE, verbose_name="Приказ о проведении выставки")
     artifacts = models.ManyToManyField(Artifact, verbose_name="Передаваемые артифакты на выставку")
     

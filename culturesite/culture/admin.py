@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Artifact, ForeignOrganization, ShowcaseType, Showcase, ArtifactReturnAct, ShowcaseOrder, ArtifactTransportAct
+from .models import Artifact, ForeignOrganization, ShowcaseType, Showcase, ArtifactReturnAct, ShowcaseOrder, ArtifactTransportAct, ArtifactAquireAct
 from import_export.admin import ImportExportModelAdmin
 from .resources import ArtifactResource, ForeignOrganizationResource, ShowcaseTypeResource, ShowcaseResource, ArtifactReturnActResource
 from django import forms
@@ -75,6 +75,7 @@ class ArtifactReturnActAdmin(ImportExportModelAdmin):
     list_display = ["showcase_order", "datetime", "id"]
     resource_class = ArtifactReturnActResource
 
+admin.site.register(ArtifactAquireAct)
 admin.site.register(ArtifactTransportAct)
 
 @admin.register(ShowcaseOrder)
