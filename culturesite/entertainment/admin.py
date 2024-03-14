@@ -70,6 +70,8 @@ class UnitPlaceAdmin(ImportExportModelAdmin):
     list_display = ["object", "price"]
     action_form = ChangePriceForm
     actions = ["change_price"]
+    list_filter = ["event", ]
+    search_fields = ["event", ]
 
     def object(self, obj):
         return str(obj)
