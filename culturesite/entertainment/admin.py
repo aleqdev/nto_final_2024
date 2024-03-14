@@ -12,8 +12,13 @@ class LocationInline(admin.StackedInline):
 
 @admin.register(Place)
 class PlaceAdmin(ImportExportModelAdmin):
-    list_display = ["id", "name", "capacity"]
+    list_display = ["object", "id", "name", "capacity"]
     inlines = [LocationInline]
+
+    def object(self, obj):
+        return str(obj)
+    
+    object.short_description = 'Объект'
 
 # class BookInline(admin.StackedInline):
 #     model = Book
@@ -34,12 +39,6 @@ class PlaceAdmin(ImportExportModelAdmin):
     
 # admin.site.register(Author, AuthorAdmin)
 # admin.site.register(Book)
-    list_display = ["object", "id", "name", "capacity"]
-
-    def object(self, obj):
-        return str(obj)
-    
-    object.short_description = 'Объект'
     
 
 @admin.register(EventType)
