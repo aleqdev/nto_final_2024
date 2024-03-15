@@ -17,7 +17,6 @@ class StudyStartOrderInline(admin.StackedInline):
     verbose_name = "Приказ о работе студии"
     verbose_name_plural = "Приказы о работе студии"
 
-<<<<<<< HEAD
 # @admin.register(StudyStartOrder)
 # class StudyStartOrderAdmin(ImportExportModelAdmin):
 #     # list_display = ["object", "id", "name", "capacity"]
@@ -27,8 +26,6 @@ class StudyStartOrderInline(admin.StackedInline):
 #         return str(obj)
     
 #     object.short_description = 'Объект'
-=======
->>>>>>> 83b568fe443844cca9216f450cffc906f839d8e5
 
 @admin.register(Study)
 class StudyAdmin(ImportExportModelAdmin):

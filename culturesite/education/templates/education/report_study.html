@@ -6,19 +6,23 @@
     <title>Отчет о Студиях</title>
 </head>
 <body>
+    Обратно: <a href="/">На главную</a>
     <table border="1" cellpadding="1" cellspacing="0">
         <tr>
-         <th>п/п</th> 
-         <th>Слова</th> 
-         <th>Участники</th> 
+        <th>Студия</th>
+        <th>Участники(ФИО, дата регистрации)</th>
         </tr>
-        {% for el in study %}
-            <tr>
-                <td>1</td>
-                <td>Вася</td>
-                <td>2,2</td>
-            </tr>
-        </table>
+        {% for key, val in study.items %}
+        <tr>
+        <td>{{key}}</td>
+        <td>
+            {% for el2 in val %}
+            {% comment %} {{el2}} {% endcomment %}
+                ФИО: {{el2.fio}}. Дата: {{el2.date}}. <br>
+            {% endfor %}
+        </td>
+        </tr>
         {% endfor %}
+    </table>
 </body>
 </html>
