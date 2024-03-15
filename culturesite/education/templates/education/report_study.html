@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчет о Студиях</title>
+</head>
+<body>
+    <table border="1" cellpadding="1" cellspacing="0">
+        <tr>
+         <th>п/п</th> 
+         <th>Слова</th> 
+         <th>Участники</th> 
+        </tr>
+        {% for el in study %}
+            <tr>
+                <td>1</td>
+                <td>Вася</td>
+                <td>2,2</td>
+            </tr>
+        </table>
+        {% endfor %}
+</body>
+</html>

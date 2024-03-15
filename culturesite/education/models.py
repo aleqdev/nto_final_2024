@@ -35,7 +35,7 @@ class StudyStartOrder(models.Model):
     teacher = models.ForeignKey(TeacherEducation, on_delete=models.CASCADE, verbose_name="Преподаватель")
     weekdays = models.ManyToManyField(Weekday, verbose_name="Дни недели")
     time = models.TimeField(verbose_name="Время занятий")
-    
+
 
 class Student(models.Model):
     fio = models.CharField(verbose_name="ФИО посетителя", max_length=255)
