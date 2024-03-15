@@ -122,3 +122,25 @@ class AbonementPriceSet(models.Model):
     class Meta:
         verbose_name = "Установка цен на абонементы"
         verbose_name_plural = "Установка цен на абонементы"
+
+
+class AbonementBuy(models.Model):
+    TYPE_ABONEMENTS = (
+        ("разовый", "разовый"),
+        ("месячный", "месячный"),
+        ("годовой", "годовой")
+    )
+    date_buy = models.DateTimeField(verbose_name="Дата продажи")
+    act_invite_study = models.ForeignKey(ActInviteStudy, on_delete=models.CASCADE, verbose_name="Заявка на посещение студии")
+    start_order_study = models.ForeignKey(StudyStartOrder, on_delete=models.CASCADE, verbose_name="Приказ о работе студии")
+    student = models.ForeignKey(Student, verbose_name="Студент", on_delete=models.CASCADE)
+    type_abonement = models.CharField(choices=TYPE_ABONEMENTS, max_length=255, verbose_name="Вид абонемента")
+    price = models.PositiveIntegerField(verbose_name="Цена")
+    
+    def __str__(self):
+        return f"Приказ работы студии: {self.start_order_study}. Заявка на посещение: {self.act_invite_study}. Цена: {self.price}. Вид абонемента: {self.type_abonement}"
+    
+    class Meta:
+        verbose_name = "Продажа абонемента"
+        verbose_name_plural = "Продажи абонементов"
+
