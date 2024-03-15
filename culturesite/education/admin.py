@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Study, TeacherEducation, StudyStartOrder, Student, ActInviteStudy, StudyStartOrderReport, AbonementPriceSet
+from .models import Study, TeacherEducation, StudyStartOrder, Student, ActInviteStudy, StudyStartOrderReport, ActInviteStudy, AbonementPriceSet, AbonementBuy
 from import_export.admin import ImportExportModelAdmin
 from .resources import StudiesResource
 from django import forms
@@ -186,3 +186,19 @@ class StudyStartOrderAdmin(ImportExportModelAdmin):
 @admin.register(AbonementPriceSet)
 class AbonementPriceSetAdmin(ImportExportModelAdmin):
     change_form_template = "admin/a.html"
+
+
+@admin.register(ActInviteStudy)
+class ActInviteStudyAdmin(ImportExportModelAdmin):
+    pass
+
+
+
+@admin.register(AbonementBuy)
+class AbonementBuyAdmin(ImportExportModelAdmin):
+    change_form_template = "admin/x.html"
+    def add_view  (self, request, form_url='', extra_context=None):
+       extra_context = extra_context or {}
+       extra_context['abonement_price_set'] = AbonementPriceSet.objects.all()
+       extra_context['study_start_order'] = StudyStartOrder.objects.all()
+       return super(AbonementBuyAdmin, self).add_view  (request, form_url, extra_context)

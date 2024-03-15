@@ -1,0 +1,44 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block submit_buttons_bottom %}
+
+    <script>
+        
+        let ab = {
+            {% for s in abonement_price_set %}
+            {{s.act_study_start_order.id}} : {
+                "single": {{s.price_single}},
+                "month": {{s.price_month}},
+                "year": {{s.price_year}},
+            },
+            {% endfor %}
+        };
+
+        console.log(ab)
+        let onchange = () => {
+            let v1 = document.getElementById("id_start_order_study").value;
+            let a =  document.getElementById("id_type_abonement").value;
+
+            console.log([v1, a])
+
+            if (a == "разовый") {
+                console.log("JOPA")
+                document.getElementById("id_price").value = ab[Number(v1)]["single"];
+            }
+            if (a == "месячный") {
+                document.getElementById("id_price").value = ab[Number(v1)]["month"];
+            }
+            if (a == "годовой") {
+                document.getElementById("id_price").value = ab[Number(v1)]["year"];
+            }
+        
+        }
+
+        document.getElementById("id_start_order_study").onchange = onchange;
+
+        document.getElementById("id_type_abonement").onchange = onchange;
+    </script>
+
+    {{ block.super }}
+{% endblock %}
