@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчет о Студиях</title>
+</head>
+<body>
+    Обратно: <a href="/">На главную</a>
+    <table border="1" cellpadding="1" cellspacing="0">
+        <tr>
+        <th>Студия</th>
+        <th>Разовый абонемент</th>
+        <th>Месячный абонемент</th>
+        <th>Годовой абонемент</th>
+        </tr>
+        {% for key, val in study.items %}
+        <tr>
+            <td>{{key}}</td>
+            <td>{{val}}</td>
+            <!-- <td>
+                {% for el2 in val %}
+                {{el2}}
+                    ФИО: {{el2.fio}}. Дата: {{el2.date}}. <br>
+                {% endfor %}
+            </td> -->
+        </tr>
+        {% endfor %}
+    </table>
+    Общая сумма: {{all_price}} руб.
+</body>
+</html>

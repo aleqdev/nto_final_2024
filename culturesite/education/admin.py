@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Study, TeacherEducation, StudyStartOrder, Student, ActInviteStudy, StudyStartOrderReport, AbonementPriceSet
+from .models import Study, TeacherEducation, StudyStartOrder, Student, ActInviteStudy, StudyStartOrderReport, AbonementPriceSet, AbonementBuy
 from import_export.admin import ImportExportModelAdmin
 from .resources import StudiesResource
 from django import forms
@@ -181,7 +181,16 @@ class StudyStartOrderAdmin(ImportExportModelAdmin):
     inlines = [AbonementPriceSetInline, ActInviteStudyInline]
     form = StudyStartOrderForm
 
-
 @admin.register(AbonementPriceSet)
 class AbonementPriceSetAdmin(ImportExportModelAdmin):
     change_form_template = "admin/a.html"
+
+
+@admin.register(AbonementBuy)
+class AbonementBuyAdmin(ImportExportModelAdmin):
+    pass
+
+@admin.register(ActInviteStudy)
+class ActInviteStudyBuyAdmin(ImportExportModelAdmin):
+    pass
+

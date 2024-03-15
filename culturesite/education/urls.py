@@ -26,5 +26,6 @@ admin.site.enable_nav_sidebar = False
 
 urlpatterns = [
     path("report_study/", reportStudy),
-    path("", index)
+    path("", index),
+    path("report_aboniment/", reportAboniment)
 ]
