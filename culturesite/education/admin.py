@@ -19,7 +19,7 @@ class StudyStartOrderInline(admin.StackedInline):
 class StudyStartOrderAdmin(ImportExportModelAdmin):
     # list_display = ["object", "id", "name", "capacity"]
     inlines = [ActInviteStudyInline]
-
+    
     def object(self, obj):
         return str(obj)
     
