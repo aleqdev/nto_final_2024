@@ -62,6 +62,9 @@ class StudyStartOrder(models.Model):
     time_begin = models.TimeField(verbose_name="Время начала занятий")
     time_end = models.TimeField(verbose_name="Время окончания занятий")
 
+    def __str__(self):
+        return f"Приказ о работе студии {self.study.name}"
+
     class Meta:
         verbose_name = "Приказ о работе студии"
         verbose_name_plural = "Приказы о работе студии"
