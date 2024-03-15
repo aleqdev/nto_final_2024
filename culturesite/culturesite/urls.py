@@ -23,6 +23,8 @@ from django.views.generic.base import RedirectView
 
 
 admin.site.enable_nav_sidebar = False
+admin.site.site_header = 'Нажмите "открыть сайт" для отчётов   ----->'
+admin.site.site_title = 'Нажмите "открыть сайт" для отчётов   ----->'
 
 
 def index(request):
@@ -34,3 +36,4 @@ urlpatterns = [
     # path("", RedirectView.as_view(url=reverse_lazy("admin:index"))),
     path("", include("education.urls"))
 ]
+

@@ -103,3 +103,19 @@ class ActInviteStudy(models.Model):
     class Meta:
         verbose_name = "Посетитель центра"
         verbose_name_plural = "Посетители центров"
+
+
+
+class AbonementPriceSet(models.Model):
+    date = models.DateTimeField(verbose_name="Дата установки цены")
+    act_study_start_order = models.ForeignKey(StudyStartOrder, on_delete=models.CASCADE, verbose_name="Приказ о работе студии")
+    price_single = models.PositiveIntegerField("Цена (разовый абонимент)")
+    price_month = models.PositiveIntegerField("Цена (месячный абонимент)")
+    price_year = models.PositiveIntegerField("Цена (годовой абонимент)")
+
+    def __str__(self):
+        return f"Установка цены ({self.act_study_start_order.study.name})"
+    
+    class Meta:
+        verbose_name = "Установка цен на абонементы"
+        verbose_name_plural = "Установка цен на абонементы"
