@@ -38,6 +38,7 @@ class AbonementPriceSetInline(admin.StackedInline):
     extra = 0
     verbose_name = "цена на абонемент"
     verbose_name_plural = "цены на абонементы"
+    template = "admin/b.html"
 
 # @admin.register(StudyStartOrder)
 # class StudyStartOrderAdmin(ImportExportModelAdmin):
