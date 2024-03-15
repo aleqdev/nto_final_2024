@@ -24,7 +24,7 @@ class TeacherEducation(models.Model):
         verbose_name_plural = "Преподаватели"
 
 class Weekday(models.Model):
-    name = models.CharField(verbose_name="Название")
+    name = models.CharField(verbose_name="Название", max_length=255)
 
 
 class StudyStartOrder(models.Model):
@@ -36,8 +36,9 @@ class StudyStartOrder(models.Model):
     weekdays = models.ManyToManyField(Weekday, verbose_name="Дни недели")
     time = models.TimeField(verbose_name="Время занятий")
     
+
 class Student(models.Model):
-    fio = models.CharField(verbose_name="ФИО посетителя")
+    fio = models.CharField(verbose_name="ФИО посетителя", max_length=255)
     def __str__(self):
         return f"{self.fio}"
     
@@ -57,4 +58,3 @@ class ActInviteStudy(models.Model):
     class Meta:
         verbose_name = "Посетитель центра"
         verbose_name_plural = "Посетители центров"
-
