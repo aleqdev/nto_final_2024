@@ -12,6 +12,17 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Student',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('fio', models.CharField(max_length=255, verbose_name='ФИО посетителя')),
+            ],
+            options={
+                'verbose_name': 'Посетитель центра',
+                'verbose_name_plural': 'Посетители центров',
+            },
+        ),
+        migrations.CreateModel(
             name='Weekday',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -31,5 +42,18 @@ class Migration(migrations.Migration):
                 ('teacher', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='education.teachereducation', verbose_name='Преподаватель')),
                 ('weekdays', models.ManyToManyField(to='education.weekday', verbose_name='Дни недели')),
             ],
+        ),
+        migrations.CreateModel(
+            name='ActInviteStudy',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('date', models.DateTimeField(verbose_name='Дата заявки')),
+                ('act_study_start_order', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='education.studystartorder', verbose_name='Приказ о работе студии')),
+                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='education.student', verbose_name='Студент')),
+            ],
+            options={
+                'verbose_name': 'Посетитель центра',
+                'verbose_name_plural': 'Посетители центров',
+            },
         ),
     ]

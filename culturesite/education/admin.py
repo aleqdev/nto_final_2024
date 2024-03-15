@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Study, TeacherEducation, StudyStartOrder, Student, ActInviteStudy
+from .models import Study, TeacherEducation, StudyStartOrder, Student, ActInviteStudy, TeacherReport
 from import_export.admin import ImportExportModelAdmin
 from .resources import StudiesResource
 from django import forms
@@ -17,15 +17,6 @@ class StudyStartOrderInline(admin.StackedInline):
     verbose_name = "Приказ о работе студии"
     verbose_name_plural = "Приказы о работе студии"
 
-@admin.register(StudyStartOrder)
-class StudyStartOrderAdmin(ImportExportModelAdmin):
-    # list_display = ["object", "id", "name", "capacity"]
-    inlines = [ActInviteStudyInline]
-    
-    def object(self, obj):
-        return str(obj)
-    
-    object.short_description = 'Объект'
 
 @admin.register(Study)
 class StudyAdmin(ImportExportModelAdmin):
@@ -38,6 +29,17 @@ class StudyAdmin(ImportExportModelAdmin):
 class TeacherEducationAdmin(ImportExportModelAdmin):
     pass
 
+
+@admin.register(TeacherReport)
+class TeacherReportAdmin(admin.ModelAdmin):
+    change_list_template = 'admin/change_form_teacher_report.html'
+
+    def get_queryset(self, request):
+        return self.model.objects.all()
+    
+    def has_add_permission(self, request):
+        return False
+    
 
 class StudyStartOrderForm(forms.ModelForm):
     class Meta:
@@ -84,6 +86,7 @@ class StudentAdmin(ImportExportModelAdmin):
 @admin.register(StudyStartOrder)
 class StudyStartOrderAdmin(ImportExportModelAdmin):
     list_display = ["study", "datetime", "date_begin", "date_end", "teacher", "time_begin", "time_end"]
+    inlines = [ActInviteStudyInline]
     form = StudyStartOrderForm
 
 
