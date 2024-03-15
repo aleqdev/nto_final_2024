@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import *
+
 def reportStudy(request):
     st = Study.objects.all()
     a = ActInviteStudy.objects.all()
@@ -16,3 +17,5 @@ def reportStudy(request):
     # context["study1"].append({"fio": "Максим", "date": "02.02.2022"})
     return render(request, "education/report_study.html", context)
 
+def index(request):
+    return render(request, "education/index.html")
