@@ -180,3 +180,8 @@ class StudyStartOrderAdmin(ImportExportModelAdmin):
     list_display = ["study", "datetime", "date_begin", "date_end", "teacher", "time_begin", "time_end"]
     inlines = [AbonementPriceSetInline, ActInviteStudyInline]
     form = StudyStartOrderForm
+
+
+@admin.register(AbonementPriceSet)
+class AbonementPriceSetAdmin(ImportExportModelAdmin):
+    change_form_template = "admin/a.html"

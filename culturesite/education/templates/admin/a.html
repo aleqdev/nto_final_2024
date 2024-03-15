@@ -3,8 +3,15 @@
 
 {% block submit_buttons_bottom %}
     <div class="submit-row">
-       <input type="button" value="AAAAAAAA" name="_anotherbutton" />
+       <input type="button" value="Расчитать абонименты" name="_anotherbutton" onclick="calculate()"/>
     </div>
+    <script>
+        function calculate() {
+            let single = Number(document.getElementById("id_price_single").value);
+            document.getElementById("id_price_month").value = String(Math.ceil(single * 0.94 * 8));
+            document.getElementById("id_price_year").value = String(Math.ceil(single * 0.84 * 8 * 9));
+        }
+    </script>
 
     {{ block.super }}
 {% endblock %}
