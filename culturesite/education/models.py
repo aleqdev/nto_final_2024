@@ -19,11 +19,14 @@ class TeacherEducation(models.Model):
     def __str__(self):
         return f"{self.fio}"
     
-    def is_free(self, date_begin, date_end, weekdays_ids, time_begin, time_end):
+    def is_free(self, date_begin, date_end, weekdays_ids, time_begin, time_end, id_exclude):
         weekdays = Weekday.objects.filter(id__in=weekdays_ids)
         orders = StudyStartOrder.objects.filter(date_begin__gte=date_begin, date_end__lte=date_end, teacher=self)
 
         for order in orders:
+            if order.id in id_exclude:
+                continue
+            
             for order_weekday in order.weekdays.all():
                 for weekday in weekdays:
                     if order_weekday.id == weekday.id:

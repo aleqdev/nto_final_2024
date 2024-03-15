@@ -143,6 +143,12 @@ class StudyStartOrderForm(forms.ModelForm):
     def clean(self):
         from django.forms import ValidationError
 
+        id = 9999999
+        try:
+            id = self.instance.id
+        except:
+            pass
+
         date_begin = self.cleaned_data['date_begin'] 
         date_end = self.cleaned_data['date_end'] 
         teacher = self.cleaned_data['teacher'] 
@@ -164,7 +170,8 @@ class StudyStartOrderForm(forms.ModelForm):
                                date_end,
                                [w.id for w in weekdays.all()],
                                time_begin,
-                               time_end
+                               time_end,
+                               [id]
                                ):
             raise ValidationError({
                     "weekdays": "Пересечение графика занятий!"
