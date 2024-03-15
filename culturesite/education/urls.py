@@ -16,21 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.shortcuts import redirect
-from django.urls import path, reverse_lazy, include
+from django.urls import path, reverse_lazy
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic.base import RedirectView
-
+from .views import *
 
 admin.site.enable_nav_sidebar = False
 
-
-def index(request):
-    return redirect("admin")
-
-
 urlpatterns = [
-    path("admin/", admin.site.urls, name='admin'),
-    path("", RedirectView.as_view(url=reverse_lazy("admin:index"))),
-    path("", include("education.urls"))
+    path("report_study/", reportStudy),
 ]
