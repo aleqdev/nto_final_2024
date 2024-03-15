@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Study, TeacherEducation, StudyStartOrder, Student, ActInviteStudy, TeacherReport
+from .models import Study, TeacherEducation, StudyStartOrder, Student, ActInviteStudy, StudyStartOrderReport
 from import_export.admin import ImportExportModelAdmin
 from .resources import StudiesResource
 from django import forms
@@ -39,15 +39,29 @@ class TeacherEducationAdmin(ImportExportModelAdmin):
     pass
 
 
-@admin.register(TeacherReport)
-class TeacherReportAdmin(admin.ModelAdmin):
-    change_list_template = 'admin/change_form_teacher_report.html'
+class FilterStudyStartOrderReportDateBegin(admin.SimpleListFilter):
+    title = 'Начальная дата'
+    parameter_name = 'id'
 
-    def get_queryset(self, request):
-        return self.model.objects.all()
+    def lookups(self, request, model_admin):
+        return tuple(
+            (place.date_begin, place.date_begin)
+            for place
+            in StudyStartOrder.objects.all()
+        )
+
+    def queryset(self, request, queryset):
+        value = self.value()
+
+        if value is None:
+            return queryset
+
+        return queryset.filter(location__place__id__exact=int(value))
     
-    def has_add_permission(self, request):
-        return False
+
+@admin.register(StudyStartOrderReport)
+class StudyStartOrderReportAdmin(admin.ModelAdmin):
+    list_filter = ["teacher", FilterStudyStartOrderReportDateBegin]
     
 
 class StudyStartOrderForm(forms.ModelForm):
