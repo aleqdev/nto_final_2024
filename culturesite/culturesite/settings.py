@@ -45,7 +45,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # ДОБАВЬ В ADMIN_REORDER!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 INSTALLED_APPS = [
-    # "admin_interface",
+    "admin_interface",
     "colorfield",
 
     "django.contrib.admin",

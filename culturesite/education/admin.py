@@ -33,6 +33,12 @@ class StudyStartOrderInline(admin.StackedInline):
     verbose_name = "Приказ о работе студии"
     verbose_name_plural = "Приказы о работе студии"
 
+class AbonementPriceSetInline(admin.StackedInline):
+    model = AbonementPriceSet
+    extra = 0
+    verbose_name = "цена на абонемент"
+    verbose_name_plural = "цены на абонементы"
+
 # @admin.register(StudyStartOrder)
 # class StudyStartOrderAdmin(ImportExportModelAdmin):
 #     # list_display = ["object", "id", "name", "capacity"]
@@ -172,11 +178,5 @@ class StudentAdmin(ImportExportModelAdmin):
 @admin.register(StudyStartOrder)
 class StudyStartOrderAdmin(ImportExportModelAdmin):
     list_display = ["study", "datetime", "date_begin", "date_end", "teacher", "time_begin", "time_end"]
-    inlines = [ActInviteStudyInline]
+    inlines = [AbonementPriceSetInline, ActInviteStudyInline]
     form = StudyStartOrderForm
-    inlines = [ActInviteStudyInline]
-
-
-@admin.register(AbonementPriceSet)
-class AbonementPriceSetAdmin(ImportExportModelAdmin):
-    pass
