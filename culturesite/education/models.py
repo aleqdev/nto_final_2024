@@ -40,6 +40,12 @@ class TeacherEducation(models.Model):
         verbose_name = "Преподаватель"
         verbose_name_plural = "Преподаватели"
 
+
+class TeacherReport(TeacherEducation):
+    class Meta:
+        proxy = True
+
+
 class Weekday(models.Model):
     name = models.CharField(max_length=50, verbose_name="Название")
 
@@ -68,7 +74,7 @@ class StudyStartOrder(models.Model):
 
 class Student(models.Model):
     fio = models.CharField(verbose_name="ФИО посетителя", max_length=255)
-    
+
     def __str__(self):
         return f"{self.fio}"
     
