@@ -71,8 +71,12 @@ class StudyStartOrder(models.Model):
 class StudyStartOrderReport(StudyStartOrder):
     class Meta:
         proxy = True
+        verbose_name = "Отчёты о преподаватеях"
+        verbose_name_plural = "Отчёты о преподаватеях"
 
         
+
+
 class Student(models.Model):
     fio = models.CharField(verbose_name="ФИО посетителя", max_length=255)
 
