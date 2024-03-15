@@ -104,8 +104,8 @@ class ActInviteStudy(models.Model):
         return f"Акт: {self.act_study_start_order}. Студент: {self.student}. Дата регистрации: {self.date.strftime("%Y-%m-%d %H:%M:%S")}"
     
     class Meta:
-        verbose_name = "Посетитель центра"
-        verbose_name_plural = "Посетители центров"
+        verbose_name = "Заявка на посещенте"
+        verbose_name_plural = "Заявки на посещение"
 
 
 

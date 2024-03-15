@@ -1,5 +1,9 @@
 from django.contrib import admin
+<<<<<<< HEAD
 from .models import Study, TeacherEducation, StudyStartOrder, Student, ActInviteStudy, StudyStartOrderReport, ActInviteStudy, AbonementPriceSet, AbonementBuy
+=======
+from .models import Study, TeacherEducation, StudyStartOrder, Student, ActInviteStudy, StudyStartOrderReport, AbonementPriceSet, AbonementBuy
+>>>>>>> 6ab5ae22b1545ac3547451b0b3bf528bb2bf4cb4
 from import_export.admin import ImportExportModelAdmin
 from .resources import StudiesResource
 from django import forms
@@ -182,7 +186,6 @@ class StudyStartOrderAdmin(ImportExportModelAdmin):
     inlines = [AbonementPriceSetInline, ActInviteStudyInline]
     form = StudyStartOrderForm
 
-
 @admin.register(AbonementPriceSet)
 class AbonementPriceSetAdmin(ImportExportModelAdmin):
     change_form_template = "admin/a.html"
@@ -202,3 +205,8 @@ class AbonementBuyAdmin(ImportExportModelAdmin):
        extra_context['abonement_price_set'] = AbonementPriceSet.objects.all()
        extra_context['study_start_order'] = StudyStartOrder.objects.all()
        return super(AbonementBuyAdmin, self).add_view  (request, form_url, extra_context)
+
+@admin.register(ActInviteStudy)
+class ActInviteStudyBuyAdmin(ImportExportModelAdmin):
+    pass
+
