@@ -30,7 +30,7 @@ def reportAboniment(request):
     all_price = 0
     for obj in study:
         if (context["study"].get(obj.name) is None):
-            context["study"][obj.name] = {"priceSingle": 0, "cntSingle": 0, "priceMonth": 0, "cntMonth": 0, "priceYear": 0, "cntYear": 0, "allPriceSingle": 0, "allPriceMonth": 0, "allPriceYear": 0}
+            context["study"][obj.name] = {"priceSingle": 0, "cntSingle": 0, "priceMonth": 0, "cntMonth": 0, "priceYear": 0, "cntYear": 0, "allPriceSingle": 0, "allPriceMonth": 0, "allPriceYear": 0, "allPrice": 0}
     for obj in price_abonement:
         context["study"][obj.act_study_start_order.study.name]["priceSingle"] = obj.price_single
         context["study"][obj.act_study_start_order.study.name]["priceMonth"] = obj.price_month
@@ -45,6 +45,7 @@ def reportAboniment(request):
         if (obj.type_abonement == "годовой"):
             context["study"][obj.start_order_study.study.name]["cntYear"] += 1
             context["study"][obj.start_order_study.study.name]["allPriceYear"] += obj.price
+        context["study"][obj.start_order_study.study.name]["allPrice"] += obj.price
         all_price += obj.price
-        context["all_price"] = all_price
+    context["all_price"] = all_price
     return render(request, "education/report_aboniment.html", context)

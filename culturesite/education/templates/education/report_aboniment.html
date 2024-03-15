@@ -13,17 +13,28 @@
         <th>Разовый абонемент</th>
         <th>Месячный абонемент</th>
         <th>Годовой абонемент</th>
+        <th>Общая сумма</th>
         </tr>
         {% for key, val in study.items %}
         <tr>
             <td>{{key}}</td>
-            <td>{{val}}</td>
-            <!-- <td>
-                {% for el2 in val %}
-                {{el2}}
-                    ФИО: {{el2.fio}}. Дата: {{el2.date}}. <br>
-                {% endfor %}
-            </td> -->
+            <!-- <td>{{val}}</td> -->
+            <td>
+                Стоимость одного абонемента: {{val.priceSingle}} <br>
+                Количество купленных: {{val.cntSingle}} <br>
+                Сумму купленных абонементов: {{val.allPriceSingle}}
+            </td>
+            <td>
+                Стоимость: {{val.priceMonth}} <br>
+                Количество купленных: {{val.cntMonth}}
+                Сумму купленных абонементов: {{val.allPriceMonth}}
+            </td>
+            <td>
+                Стоимость: {{val.priceYear}} <br>
+                Количество купленных: {{val.cntYear}}
+                Сумму купленных абонементов: {{val.allPriceYear}}
+            </td>
+            <td>{{val.allPrice}}</td>
         </tr>
         {% endfor %}
     </table>
