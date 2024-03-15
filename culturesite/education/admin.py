@@ -32,14 +32,14 @@ class TeacherEducationAdmin(ImportExportModelAdmin):
 
 class FilterStudyStartOrderReportDateBegin(admin.SimpleListFilter):
     title = 'Начальная дата'
-    parameter_name = 'id'
+    parameter_name = 'date_begin'
 
     def lookups(self, request, model_admin):
-        return tuple(
+        return tuple(set(
             (place.date_begin, place.date_begin)
             for place
             in StudyStartOrder.objects.all()
-        )
+        ))
 
     def queryset(self, request, queryset):
         value = self.value()
@@ -47,12 +47,59 @@ class FilterStudyStartOrderReportDateBegin(admin.SimpleListFilter):
         if value is None:
             return queryset
 
-        return queryset.filter(location__place__id__exact=int(value))
+        return queryset.filter(date_begin__gte=value)
     
+
+class FilterStudyStartOrderReportDateEnd(admin.SimpleListFilter):
+    title = 'Конечная дата'
+    parameter_name = 'date_end'
+
+    def lookups(self, request, model_admin):
+        return tuple(set(
+            (place.date_begin, place.date_begin)
+            for place
+            in StudyStartOrder.objects.all()
+        ))
+
+    def queryset(self, request, queryset):
+        value = self.value()
+
+        if value is None:
+            return queryset
+
+        return queryset.filter(date_end__lte=value)
+ 
+
+
+class TeacherFilter(admin.SimpleListFilter):
+    title = 'Преподаватель'
+    parameter_name = 'teacher'
+
+    def lookups(self, request, model_admin):
+        return tuple(set(
+            (place.id, place.fio)
+            for place
+            in TeacherEducation.objects.all()
+        ))
+
+    def queryset(self, request, queryset):
+        value = self.value()
+
+        if value is None:
+            return queryset
+
+        return queryset.filter(teacher__id=value)
+    
+
 
 @admin.register(StudyStartOrderReport)
 class StudyStartOrderReportAdmin(admin.ModelAdmin):
-    list_filter = ["teacher", FilterStudyStartOrderReportDateBegin]
+    list_filter = [TeacherFilter, FilterStudyStartOrderReportDateBegin, FilterStudyStartOrderReportDateEnd]
+    list_display = ["teacher", "weekdays_s", "time_begin", "time_end"]
+
+    def weekdays_s(self, obj):
+        return ' '.join([w.name for w in obj.weekdays.all()])
+    weekdays_s.short_descrition = "День недели"
     
 
 class StudyStartOrderForm(forms.ModelForm):
