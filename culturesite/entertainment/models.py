@@ -110,8 +110,8 @@ class UnitPlace(models.Model):
         ).count() == 0
     
     class Meta:
-        verbose_name = "Место"
-        verbose_name_plural = "Места"
+        verbose_name = "Билет"
+        verbose_name_plural = "Билеты"
 
 
 # Продажа билетов 
