@@ -17,15 +17,15 @@ class StudyStartOrderInline(admin.StackedInline):
     verbose_name = "Приказ о работе студии"
     verbose_name_plural = "Приказы о работе студии"
 
-@admin.register(StudyStartOrder)
-class StudyStartOrderAdmin(ImportExportModelAdmin):
-    # list_display = ["object", "id", "name", "capacity"]
-    inlines = [ActInviteStudyInline]
+# @admin.register(StudyStartOrder)
+# class StudyStartOrderAdmin(ImportExportModelAdmin):
+#     # list_display = ["object", "id", "name", "capacity"]
+#     inlines = [ActInviteStudyInline]
     
-    def object(self, obj):
-        return str(obj)
+#     def object(self, obj):
+#         return str(obj)
     
-    object.short_description = 'Объект'
+#     object.short_description = 'Объект'
 
 @admin.register(Study)
 class StudyAdmin(ImportExportModelAdmin):
@@ -85,5 +85,6 @@ class StudentAdmin(ImportExportModelAdmin):
 class StudyStartOrderAdmin(ImportExportModelAdmin):
     list_display = ["study", "datetime", "date_begin", "date_end", "teacher", "time_begin", "time_end"]
     form = StudyStartOrderForm
+    inlines = [ActInviteStudyInline]
 
 
