@@ -31,6 +31,6 @@ def index(request):
 
 urlpatterns = [
     path("admin/", admin.site.urls, name='admin'),
-    path("", RedirectView.as_view(url=reverse_lazy("admin:index"))),
+    # path("", RedirectView.as_view(url=reverse_lazy("admin:index"))),
     path("", include("education.urls"))
 ]
