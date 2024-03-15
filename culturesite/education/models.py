@@ -69,6 +69,10 @@ class StudyStartOrder(models.Model):
 
 
 class StudyStartOrderReport(StudyStartOrder):
+
+    def __str__(self):
+        return str(self.study)
+    
     class Meta:
         proxy = True
         verbose_name = "Отчёты о преподаватеях"

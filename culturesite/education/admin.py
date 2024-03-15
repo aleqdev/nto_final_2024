@@ -103,7 +103,7 @@ class TeacherFilter(admin.SimpleListFilter):
 
 @admin.register(StudyStartOrderReport)
 class StudyStartOrderReportAdmin(admin.ModelAdmin):
-    list_filter = [TeacherFilter, FilterStudyStartOrderReportDateBegin, FilterStudyStartOrderReportDateEnd]
+    list_filter = [FilterStudyStartOrderReportDateBegin, FilterStudyStartOrderReportDateEnd, TeacherFilter]
     list_display = ["teacher", "weekdays_s", "time_begin", "time_end"]
 
     def weekdays_s(self, obj):
